@@ -36,31 +36,35 @@ for i in range(len(X)):
 A2 = A.dot(A)
 x1 = x.dot(A2)
 x2 = x1.dot(b)
-print(round(x2, 9))
+print(x2)
+'''
 '''
 import pandas as pd
+df1 = pd.read_csv(input(), sep=';')
+df2 = pd.read_csv(input(), sep=';')
+df3 = df2.groupby('id').mean().round(3)
+dfres = pd.merge(df1, df3, left_on='id', right_on='id')
+dfR = dfres.sort_values('mark', ascending=False)
+dfRRR = dfR[['name', 'mark']]
+dfRRR = dfRRR.reset_index(drop=True)
+for i in range(3):
+	dfRRR.loc[i,'mark'] = "{0:.3f}".format(dfRRR.loc[i,'mark'])
+for i in range(3):
+	print(dfRRR.loc[i,'name'], dfRRR.loc[i, 'mark'])
+dflast = dfR[dfR['mark'] > 8.0].groupby('company').count().sort_values('mark', ascending=False).iloc[0, :]
+sas = dflast.loc['mark']
+print(dflast.name, sas)
 '''
-import numpy as np
-'''
-df1 = pd.read_csv('games001.csv', sep=';')
-df2 = pd.read_csv('rates001.csv', sep=';')
-print(df1)
-df3 = df2.groupby('id').sum()
-print(df3)
-num = len(df1.index)
-a = []
-c = [0 for i in range(num)]
-b = [0 for i in range(num)]
-for i in range(num):
-    a.append(i+1)
-for i in range(len(df2.index)):
-    for j in range(num):
-        if df2.loc[i, 'id'] == a[j]:
-            b[j] += 1
-print(b)
-for i in range(1,num+1):
-    c[i-1] = df3.loc[i, 'mark']/b[i-1]
-print(c)
-f = [a, c]
-d = sorted(f, key=lambda x: x[1])
-print(d)
+import pandas as pd
+papers = pd.read_csv(input(), sep=';')
+links = pd.read_csv(input(), sep=';')
+skolko = links.groupby('reference').count()
+j = pd.merge(papers, skolko, left_on='title', right_on='reference')
+print(skolko)
+print(j)
+kolvo = papers.groupby('author').count()
+print(kolvo)
+res0 = pd.merge(j, kolvo, left_on='author', right_on='author')
+print(res0)
+for i in range
+
